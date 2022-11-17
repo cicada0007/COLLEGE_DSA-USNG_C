@@ -61,7 +61,7 @@ void push(){
     }
 }
 
-int pop(){
+int display (){
     
     if(top == -1){
         print("STACK HAS NO ELEMENT");
