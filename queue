@@ -1,0 +1,130 @@
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+
+#define MAX 5
+
+
+
+int enque(char ele);
+char deque();
+void display();
+
+
+char Q[MAX];
+int front=-1,rear=-1;
+
+
+int enque(char ele)
+{
+	
+
+	if( (front==0 && rear==MAX-1)||(front==(rear+1)) )
+	{
+		
+		printf("Queue is full!! Can not insert \n");
+		return(0);
+	}	
+	
+	if(front==-1 && rear==-1)
+	{	
+		front=0;
+	}
+	rear=(rear+1)%MAX;
+	Q[rear]=ele;
+
+
+	
+
+
+}
+
+
+
+char deque()
+{
+	char ele;
+
+	if(front==-1)
+		printf("UNDERFLOW!\n");
+
+
+	if(front==rear)
+	{	
+		ele=Q[(front+1)%MAX];
+		printf("Queue is EMPTY!\n");
+		front=rear=-1;
+	}
+
+	else
+	{	
+		ele=Q[front];	
+		front=(front+1)%MAX;	
+		
+
+	}
+
+	return(ele);
+
+}
+
+
+void display()
+{	int i;
+	for(i=front;i!=rear;i=(i+1)%MAX)
+	{
+		printf(" %c \n",Q[i]);
+
+	}
+	printf(" %c",Q[i]);
+
+}
+
+
+void main()
+{	int opt;
+	char ele;
+
+	while(1)	
+	{	
+		printf("\t\t\tMENU\n");
+		printf("\t1.enque\n");
+		printf("\t2.Deque\n");
+		printf("\t3.Display\n");
+		printf("\t4.EXIT\n");
+
+		printf("Enter option no : ");
+
+		scanf("%d",&opt);
+
+
+		
+		switch(opt)
+		{
+
+			case 1:
+				printf("Enter Element to insert:");
+				scanf(" %c",&ele);
+				enque(ele);break;
+			case 2:
+				ele=deque();
+				printf("Deleted Element is %c \n",ele);
+				break;
+		
+			case 3:
+
+				display();break;
+
+			case 4:
+				exit(0);
+
+			default : printf("INVALID CHOICE\n");break;
+		}
+
+
+	}
+
+
+}
