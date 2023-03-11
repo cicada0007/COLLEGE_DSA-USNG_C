@@ -197,3 +197,9 @@ int main()
 
 	return 0;
 }
+
+
+output
+
+Enter Infix expression : a+b
+Postfix Expression: ab+
