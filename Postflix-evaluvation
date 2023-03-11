@@ -204,3 +204,10 @@ int main()
 
 }
 
+
+OUTPUT
+
+Enter postfix expression,
+press right parenthesis ')' for end expression : (2 3+)
+Result of expression evaluation : 5 
+
