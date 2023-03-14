@@ -1,36 +1,17 @@
-/* This program is for evaluation of postfix expression
 
-* This program assume that there are only four operators
-
-* (*, /, +, -) in an expression and operand is single digit only
-
-* Further this program does not do any error handling e.g.
-
-* it does not check that entered postfix expression is valid
-
-* or not.
-
-* */
 
 #include <stdio.h>
 
 #include <ctype.h>
 
-#define MAXSTACK 100 /* for max size of stack */
+#define MAXSTACK 100 
 
-#define POSTFIXSIZE 100 /* define max number of charcters in postfix expression */
-
-/* declare stack and its top pointer to be used during postfix expression
-
-evaluation*/
+#define POSTFIXSIZE 100
 
 int stack[MAXSTACK];
 
-int top = -1; /* because array index in C begins at 0 */
+int top = -1; 
 
-/* can be do this initialization somewhere else */
-
-/* define push operation */
 
 void push(int item)
 
@@ -54,7 +35,7 @@ void push(int item)
 
 }
 
-/* define pop operation */
+
 
 int pop()
 
@@ -80,8 +61,6 @@ int pop()
 
 }
 
-/* define function that is used to input postfix expression and to evaluate it */
-
 void EvalPostfix(char postfix[])
 
 {
@@ -94,7 +73,6 @@ void EvalPostfix(char postfix[])
 
     int A, B;
 
-    /* evaluate postfix expression */
 
     for (i = 0; postfix[i] != ')'; i++) {
 
@@ -102,9 +80,6 @@ void EvalPostfix(char postfix[])
 
         if (isdigit(ch)) {
 
-            /* we saw an operand,push the digit onto stack
-
-ch - '0' is used for getting digit rather than ASCII code of digit */
 
             push(ch - '0');
 
@@ -112,19 +87,13 @@ ch - '0' is used for getting digit rather than ASCII code of digit */
 
         else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
 
-            /* we saw an operator
-
-* pop top element A and next-to-top elemnet B
-
-* from stack and compute B operator A
-
-*/
+       
 
             A = pop();
 
             B = pop();
 
-            switch (ch) /* ch is an operator */
+            switch (ch) 
 
             {
 
@@ -154,8 +123,6 @@ ch - '0' is used for getting digit rather than ASCII code of digit */
 
             }
 
-            /* push the value obtained above onto the stack */
-
             push(val);
 
         }
@@ -172,7 +139,7 @@ int main()
 
     int i;
 
-    /* declare character array to store postfix expression */
+
 
     char postfix[POSTFIXSIZE];
 
@@ -180,23 +147,22 @@ int main()
 
     printf(" \nEnter postfix expression,\npress right parenthesis ')' for end expression : ");
 
-    /* take input of postfix expression from user */
 
     for (i = 0; i <= POSTFIXSIZE - 1; i++) {
 
         scanf("%c", &postfix[i]);
 
-        if (postfix[i] == ')') /* is there any way to eliminate this if */
+        if (postfix[i] == ')')
 
         {
 
             break;
 
-        } /* and break statement */
+        }
 
     }
 
-    /* call function to evaluate postfix expression */
+  
 
     EvalPostfix(postfix);
 
