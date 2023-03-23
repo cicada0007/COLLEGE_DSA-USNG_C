@@ -1,130 +1,98 @@
+Cicada
+// Circular Queue implementation in C
 
+#include <stdio.h>
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<ctype.h>
+#define SIZE 5
 
-#define MAX 5
+int items[SIZE];
+int front = -1, rear = -1;
 
-
-
-int enque(char ele);
-char deque();
-void display();
-
-
-char Q[MAX];
-int front=-1,rear=-1;
-
-
-int enque(char ele)
-{
-	
-
-	if( (front==0 && rear==MAX-1)||(front==(rear+1)) )
-	{
-		
-		printf("Queue is full!! Can not insert \n");
-		return(0);
-	}	
-	
-	if(front==-1 && rear==-1)
-	{	
-		front=0;
-	}
-	rear=(rear+1)%MAX;
-	Q[rear]=ele;
-
-
-	
-
-
+// Check if the queue is full
+int isFull() {
+  if ((front == rear + 1) || (front == 0 && rear == SIZE - 1)) return 1;
+  return 0;
 }
 
-
-
-char deque()
-{
-	char ele;
-
-	if(front==-1)
-		printf("UNDERFLOW!\n");
-
-
-	if(front==rear)
-	{	
-		ele=Q[(front+1)%MAX];
-		printf("Queue is EMPTY!\n");
-		front=rear=-1;
-	}
-
-	else
-	{	
-		ele=Q[front];	
-		front=(front+1)%MAX;	
-		
-
-	}
-
-	return(ele);
-
+// Check if the queue is empty
+int isEmpty() {
+  if (front == -1) return 1;
+  return 0;
 }
 
-
-void display()
-{	int i;
-	for(i=front;i!=rear;i=(i+1)%MAX)
-	{
-		printf(" %c \n",Q[i]);
-
-	}
-	printf(" %c",Q[i]);
-
+// Adding an element
+void enQueue(int element) {
+  if (isFull())
+    printf("\n Queue is full!! \n");
+  else {
+    if (front == -1) front = 0;
+    rear = (rear + 1) % SIZE;
+    items[rear] = element;
+    printf("\n Inserted -> %d", element);
+  }
 }
 
+// Removing an element
+int deQueue() {
+  int element;
+  if (isEmpty()) {
+    printf("\n Queue is empty !! \n");
+    return (-1);
+  } else {
+    element = items[front];
+    if (front == rear) {
+      front = -1;
+      rear = -1;
+    } 
+    // Q has only one element, so we reset the 
+    // queue after dequeing it. ?
+    else {
+      front = (front + 1) % SIZE;
+    }
+    printf("\n Deleted element -> %d \n", element);
+    return (element);
+  }
+}
 
-void main()
-{	int opt;
-	char ele;
+// Display the queue
+void display() {
+  int i;
+  if (isEmpty())
+    printf(" \n Empty Queue\n");
+  else {
+    printf("\n Front -> %d ", front);
+    printf("\n Items -> ");
+    for (i = front; i != rear; i = (i + 1) % SIZE) {
+      printf("%d ", items[i]);
+    }
+    printf("%d ", items[i]);
+    printf("\n Rear -> %d \n", rear);
+  }
+}
 
-	while(1)	
-	{	
-		printf("\t\t\tMENU\n");
-		printf("\t1.enque\n");
-		printf("\t2.Deque\n");
-		printf("\t3.Display\n");
-		printf("\t4.EXIT\n");
+int main() {
+  // Fails because front = -1
+  deQueue();
 
-		printf("Enter option no : ");
+  enQueue(1);
+  enQueue(2);
+  enQueue(3);
+  enQueue(4);
+  enQueue(5);
 
-		scanf("%d",&opt);
+  // Fails to enqueue because front == 0 && rear == SIZE - 1
+  enQueue(6);
 
+  display();
+  deQueue();
 
-		
-		switch(opt)
-		{
+  display();
 
-			case 1:
-				printf("Enter Element to insert:");
-				scanf(" %c",&ele);
-				enque(ele);break;
-			case 2:
-				ele=deque();
-				printf("Deleted Element is %c \n",ele);
-				break;
-		
-			case 3:
+  enQueue(7);
+  display();
 
-				display();break;
+  // Fails to enqueue because front == rear + 1
+  enQueue(8);
 
-			case 4:
-				exit(0);
-
-			default : printf("INVALID CHOICE\n");break;
-		}
-
-
-	}
-
-
+  return 0;
 }
